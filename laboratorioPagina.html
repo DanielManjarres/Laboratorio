@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio - Facultad de [FACULTAD]</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        #reservation-summary {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            background-color: #f9fafb;
+        }
+
+        #material-request-summary {
+            display: none;
+            margin-top: 16px;
+            padding: 16px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            background-color: #f9fafb;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-600">Laboratorio - Facultad de [FACULTAD]</h1>
+            <nav>
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 px-4">Inicio</a>
+                <a href="login.html" class="text-gray-700 hover:text-blue-600 px-4">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <h2 class="text-3xl font-semibold text-gray-800 text-center mb-8">Bienvenido al Laboratorio de [FACULTAD]</h2>
+
+        <!-- Tabs -->
+        <div class="bg-white shadow-lg rounded-lg">
+            <div class="flex border-b">
+                <button id="tab-reserva" class="w-1/2 text-center py-3 border-b-2 border-blue-600 text-blue-600 font-medium focus:outline-none" onclick="switchTab('reserva')">Reserva de Laboratorios</button>
+                <button id="tab-materiales" class="w-1/2 text-center py-3 text-gray-600 font-medium focus:outline-none hover:text-blue-600" onclick="switchTab('materiales')">Solicitud de Materiales</button>
+            </div>
+
+            <!-- Reserva de Laboratorios -->
+            <div id="content-reserva" class="p-6">
+                <h3 class="text-2xl font-medium text-blue-600 mb-4">Reserva de Laboratorios</h3>
+                <form id="reservationForm" class="space-y-4" onsubmit="return false;">
+                    <div>
+                        <label class="block text-gray-700">Seleccionar Fecha</label>
+                        <input type="date" id="reservation-date" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:border-blue-600" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700">Seleccionar Hora</label>
+                        <input type="time" id="reservation-time" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:border-blue-600" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700">Tipo de Laboratorio</label>
+                        <select id="reservation-lab" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:border-blue-600">
+                            <option value="Laboratorio de Computadoras">Laboratorio de Computadoras</option>
+                            <option value="Laboratorio de Electrónica">Laboratorio de Electrónica</option>
+                            <option value="Laboratorio de Química">Laboratorio de Química</option>
+                        </select>
+                    </div>
+                    <button type="button" id="reserve-button" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200">Reservar</button>
+                </form>
+
+                <!-- Summary Box -->
+                <div id="reservation-summary">
+                    <h4 class="text-xl font-medium text-gray-800">Resumen de la Reserva:</h4>
+                    <p id="summary-details" class="text-gray-700 mt-2"></p>
+                    <p class="text-sm text-gray-500 mt-4">Nota: Toda la información será enviada a su correo institucional.</p>
+                </div>
+            </div>
+
+            <!-- Solicitud de Materiales -->
+            <div id="content-materiales" class="p-6 hidden">
+                <h3 class="text-2xl font-medium text-blue-600 mb-4">Solicitud de Materiales de Inventario</h3>
+                <form id="materialRequestForm" class="space-y-4" onsubmit="return false;">
+                    <div>
+                        <label class="block text-gray-700">Nombre del Material</label>
+                        <input type="text" id="material-name" placeholder="Ejemplo: Osciloscopio, Reactivos químicos" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:border-blue-600" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700">Cantidad</label>
+                        <input type="number" id="material-quantity" placeholder="Cantidad requerida" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:border-blue-600" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700">Razón o Descripción</label>
+                        <textarea id="material-reason" placeholder="Describe por qué necesitas este material" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:border-blue-600" rows="4"></textarea>
+                    </div>
+                    <button type="button" id="request-material-button" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200">Solicitar Material</button>
+                </form>
+
+                <!-- Material Request Summary -->
+                <div id="material-request-summary">
+                    <h4 class="text-xl font-medium text-gray-800">Resumen de la Solicitud:</h4>
+                    <p id="material-summary-details" class="text-gray-700 mt-2"></p>
+                    <p class="text-sm text-gray-500 mt-4">Nota: La solicitud será enviada para revisión.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Cambiar entre pestañas
+        function switchTab(tab) {
+            const tabs = ['reserva', 'materiales'];
+            tabs.forEach(t => {
+                document.getElementById(`tab-${t}`).classList.toggle('text-blue-600', t === tab);
+                document.getElementById(`tab-${t}`).classList.toggle('text-gray-600', t !== tab);
+                document.getElementById(`content-${t}`).classList.toggle('hidden', t !== tab);
+            });
+        }
+
+        // Mostrar el resumen de reserva
+        const reserveButton = document.getElementById('reserve-button');
+        reserveButton.addEventListener('click', () => {
+            const date = document.getElementById('reservation-date').value;
+            const time = document.getElementById('reservation-time').value;
+            const lab = document.getElementById('reservation-lab').value;
+
+            if (!date || !time || !lab) {
+                alert('Por favor complete todos los campos para hacer la reserva.');
+                return;
+            }
+
+            const summaryBox = document.getElementById('reservation-summary');
+            const summaryDetails = document.getElementById('summary-details');
+            summaryDetails.textContent = `Fecha: ${date}, Hora: ${time}, Laboratorio: ${lab}.`;
+            summaryBox.style.display = 'block';
+        });
+
+        // Mostrar el resumen de solicitud de materiales
+        const requestMaterialButton = document.getElementById('request-material-button');
+        requestMaterialButton.addEventListener('click', () => {
+            const materialName = document.getElementById('material-name').value;
+            const quantity = document.getElementById('material-quantity').value;
+            const reason = document.getElementById('material-reason').value;
+
+            if (!materialName || !quantity || !reason) {
+                alert('Por favor complete todos los campos para hacer la solicitud.');
+                return;
+            }
+
+            const materialSummaryBox = document.getElementById('material-request-summary');
+            const materialSummaryDetails = document.getElementById('material-summary-details');
+            materialSummaryDetails.textContent = `Material: ${materialName}, Cantidad: ${quantity}, Razón: ${reason}.`;
+            materialSummaryBox.style.display = 'block';
+        });
+    </script>
+</body>
+
+</html>

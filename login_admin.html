@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - Gestión de Laboratorios</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .chart-container {
+            width: 40%;
+            max-width: 300px;
+        }
+
+        .inventory-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .table-container {
+            width: 55%;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-600">Administración de Laboratorios</h1>
+            <a href="index.html" class="text-gray-700 hover:text-blue-600">Cerrar Sesión</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12">
+        <h2 class="text-3xl font-semibold text-gray-800 text-center mb-8">Panel de Administrativos</h2>
+
+        <!-- Tabs -->
+        <div class="bg-white shadow-lg rounded-lg mb-6">
+            <div class="flex border-b">
+                <button id="tab-horarios" class="w-1/2 text-center py-3 border-b-2 border-blue-600 text-blue-600 font-medium focus:outline-none" onclick="switchTab('horarios')">Calendario de Reservas</button>
+                <button id="tab-inventario" class="w-1/2 text-center py-3 text-gray-600 font-medium focus:outline-none hover:text-blue-600" onclick="switchTab('inventario')">Administración de Inventario</button>
+            </div>
+
+            <!-- Administración de Inventario -->
+            <div id="content-inventario" class="p-6 hidden">
+                <h3 class="text-2xl font-medium text-blue-600 mb-6">Inventario por Facultad</h3>
+
+                <!-- Facultad de Ingeniería -->
+                <div class="inventory-container mb-12">
+                    <div class="table-container">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-4">Facultad de Ingeniería</h4>
+                        <table class="table-auto w-full text-left">
+                            <thead>
+                                <tr class="bg-gray-200 text-gray-700">
+                                    <th class="px-4 py-2">Material</th>
+                                    <th class="px-4 py-2">Estado</th>
+                                    <th class="px-4 py-2">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="px-4 py-2">Osciloscopio</td>
+                                    <td class="px-4 py-2 text-green-600">Disponible</td>
+                                    <td class="px-4 py-2">
+                                        <button class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition duration-200">Marcar como Mantenimiento</button>
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-100">
+                                    <td class="px-4 py-2">Multímetro</td>
+                                    <td class="px-4 py-2 text-red-600">En Mantenimiento</td>
+                                    <td class="px-4 py-2">
+                                        <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-200">Marcar como Disponible</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartIngenieria"></canvas>
+                    </div>
+                </div>
+
+                <!-- Facultad de Psicología -->
+                <div class="inventory-container mb-12">
+                    <div class="table-container">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-4">Facultad de Psicología</h4>
+                        <table class="table-auto w-full text-left">
+                            <thead>
+                                <tr class="bg-gray-200 text-gray-700">
+                                    <th class="px-4 py-2">Material</th>
+                                    <th class="px-4 py-2">Estado</th>
+                                    <th class="px-4 py-2">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="px-4 py-2">Pruebas proyectivas</td>
+                                    <td class="px-4 py-2 text-green-600">Disponible</td>
+                                    <td class="px-4 py-2">
+                                        <button class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition duration-200">Marcar como Mantenimiento</button>
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-100">
+                                    <td class="px-4 py-2">Test de Rorschach</td>
+                                    <td class="px-4 py-2 text-red-600">En Mantenimiento</td>
+                                    <td class="px-4 py-2">
+                                        <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-200">Marcar como Disponible</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartPsicologia"></canvas>
+                    </div>
+                </div>
+
+                <!-- Facultad de Medicina -->
+                <div class="inventory-container">
+                    <div class="table-container">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-4">Facultad de Medicina</h4>
+                        <table class="table-auto w-full text-left">
+                            <thead>
+                                <tr class="bg-gray-200 text-gray-700">
+                                    <th class="px-4 py-2">Material</th>
+                                    <th class="px-4 py-2">Estado</th>
+                                    <th class="px-4 py-2">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white">
+                                    <td class="px-4 py-2">Microscopio</td>
+                                    <td class="px-4 py-2 text-green-600">Disponible</td>
+                                    <td class="px-4 py-2">
+                                        <button class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition duration-200">Marcar como Mantenimiento</button>
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-100">
+                                    <td class="px-4 py-2">Simulador anatómico</td>
+                                    <td class="px-4 py-2 text-red-600">En Mantenimiento</td>
+                                    <td class="px-4 py-2">
+                                        <button class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-200">Marcar como Disponible</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chartMedicina"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        const inventoryData = {
+            Ingenieria: { disponible: 10, mantenimiento: 5 },
+            Psicologia: { disponible: 8, mantenimiento: 3 },
+            Medicina: { disponible: 12, mantenimiento: 4 },
+        };
+
+        function renderChart(canvasId, data) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Disponible', 'En Mantenimiento'],
+                    datasets: [{
+                        data: [data.disponible, data.mantenimiento],
+                        backgroundColor: ['#4CAF50', '#F44336'],
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: { display: false },
+                    },
+                },
+            });
+        }
+
+        function switchTab(tab) {
+            const tabs = ['horarios', 'inventario'];
+            tabs.forEach(t => {
+                document.getElementById(`content-${t}`).classList.toggle('hidden', t !== tab);
+            });
+
+            if (tab === 'inventario') {
+                renderChart('chartIngenieria', inventoryData.Ingenieria);
+                renderChart('chartPsicologia', inventoryData.Psicologia);
+                renderChart('chartMedicina', inventoryData.Medicina);
+            }
+        }
+    </script>
+</body>
+
+</html>

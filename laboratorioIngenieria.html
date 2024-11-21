@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio - Ingeniería</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css' rel='stylesheet' />
+    <style>
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-600">Laboratorio - Ingeniería</h1>
+            <nav>
+                <a href="login_unificado.html" class="text-gray-700 hover:text-blue-600 px-4">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <h2 class="text-3xl font-semibold text-gray-800 text-center mb-8">Bienvenido al Laboratorio de Ingeniería</h2>
+        <p class="text-gray-700 text-center mb-6">Aquí puedes gestionar tus reservas y solicitudes de materiales.</p>
+        
+        <div class="flex justify-center mb-4">
+            <button id="tab1" class="tab-button px-4 py-2 bg-blue-600 text-white rounded-l hover:bg-blue-700">Reserva Laboratorio</button>
+            <button id="tab2" class="tab-button px-4 py-2 bg-blue-600 text-white rounded-r hover:bg-blue-700">Reserva Materiales</button>
+        </div>
+
+        <div id="calendar" class="tab-content active">
+            <h3 class="text-xl font-semibold text-gray-800 text-center mb-4">Calendario de Reservas</h3>
+            <div id="calendar-container" class="bg-white p-4 rounded shadow-md"></div>
+        </div>
+
+        <div id="inventory" class="tab-content">
+            <h3 class="text-xl font-semibold text-gray-800 text-center mb-4">Reserva de Materiales</h3>
+            <p class="text-gray-700 text-center">Selecciona los materiales que deseas reservar de nuestro inventario.</p>
+
+            <table class="min-w-full bg-white border border-gray-300 mt-4">
+                <thead>
+                    <tr>
+                        <th class="border px-4 py-2">Material</th>
+                        <th class="border px-4 py-2">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border px-4 py-2">Computadora Portátil</td>
+                        <td class="border px-4 py-2 text-green-600">Disponible</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2">Proyector</td>
+                        <td class="border px-4 py-2 text-red-600">En Mantenimiento</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2">Kit de Herramientas</td>
+                        <td class="border px-4 py-2 text-green-600">Disponible</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2">Impresora 3D</td>
+                        <td class="border px-4 py-2 text-red-600">En Mantenimiento</td>
+                    </tr>
+                    <tr>
+                        <td class="border px-4 py-2">Cámara Digital</td>
+                        <td class="border px-4 py-2 text-green-600">Disponible</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js'></script>
+    <script>
+        document.getElementById('tab1').addEventListener('click', function() {
+            document.getElementById('calendar').classList.add('active');
+            document.getElementById('inventory').classList.remove('active');
+        });
+
+        document.getElementById('tab2').addEventListener('click', function() {
+            document.getElementById('inventory').classList.add('active');
+            document.getElementById('calendar').classList.remove('active');
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar-container');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                dateClick: function(info) {
+                    alert('Reservaste el día: ' + info.dateStr);
+                },
+                events: [
+                    // Aquí puedes agregar eventos de reserva existentes
+                ]
+            });
+            calendar.render();
+        });
+    </script>
+</body>
+
+</html>
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Universidades</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        function handleLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email === 'ingeniero@cue.edu') {
+                window.location.href = 'laboratorioIngenieria.html';
+            } else if (email === 'medico@cue.edu') {
+                window.location.href = 'laboratorioMedicina.html';
+            } else if (email === 'psicologo@cue.edu') {
+                window.location.href = 'laboratorioPsicologia.html';
+            } else {
+                alert('Correo no válido.');
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-lg rounded-lg max-w-md w-full p-8 mx-4">
+        <h2 class="text-2xl font-semibold text-center text-blue-600 mb-6">Iniciar Sesión</h2>
+        <form id="loginForm" class="space-y-4" onsubmit="event.preventDefault(); handleLogin();">
+            <div>
+                <label class="block text-gray-700">Correo Electrónico</label>
+                <input type="email" id="email" placeholder="ejemplo@universidad.edu" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:border-blue-600" required>
+            </div>
+            <div>
+                <label class="block text-gray-700">Contraseña</label>
+                <input type="password" id="password" placeholder="••••••••" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:border-blue-600" required>
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200">Iniciar sesión</button>
+            <p class="text-center text-gray-600 mt-6">
+                <a href="recuperar_contraseña.html" class="text-blue-600 hover:underline">¿Olvidaste tu contraseña?</a>
+            </p>
+        </form>
+    </div>
+</body>
+
+</html>

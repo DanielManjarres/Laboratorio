@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña - Gestión de Laboratorios</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-white shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-600">Gestión de Laboratorios</h1>
+            <nav>
+                <a href="index.html" class="text-gray-700 hover:text-blue-600 px-4">Inicio</a>
+                <a href="#about" class="text-gray-700 hover:text-blue-600 px-4">Acerca de</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Password Recovery Form Section -->
+    <main class="flex-grow flex items-center justify-center py-12">
+        <div class="bg-white shadow-lg rounded-lg max-w-md w-full p-8 mx-4">
+            <h2 class="text-2xl font-semibold text-center text-blue-600 mb-6">Recuperar Contraseña</h2>
+            <p class="text-center text-gray-600 mb-6">Ingresa tu correo electrónico para recibir un enlace de recuperación de contraseña</p>
+
+            <!-- Formulario de recuperación de contraseña -->
+            <form id="recoveryForm" class="space-y-4" onsubmit="return false;">
+                <div>
+                    <label class="block text-gray-700">Correo Electrónico</label>
+                    <input type="email" placeholder="ejemplo@universidad.edu" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:border-blue-600" required>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200">Enviar Enlace de Recuperación</button>
+            </form>
+
+            <!-- Enlace de regreso al login -->
+            <p class="text-center text-gray-600 mt-6">
+                <a href="login.html" class="text-blue-600 hover:underline">Volver al inicio de sesión</a>
+            </p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Universidad Alexander Von Humboldt. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
